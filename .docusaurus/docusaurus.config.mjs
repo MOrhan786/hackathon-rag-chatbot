@@ -30,7 +30,7 @@ export default {
       {
         "docs": {
           "sidebarPath": "./sidebars.ts",
-          "editUrl": "https://github.com/MahneeraAzam"
+          "editUrl": "https://github.com/MOrhan786"
         },
         "blog": false,
         "theme": {
@@ -83,7 +83,7 @@ export default {
           ]
         },
         {
-          "href": "https://github.com/MahneeraAzam",
+          "href": "https://github.com/MOrhan786",
           "label": "GitHub",
           "position": "right"
         }
@@ -111,11 +111,11 @@ export default {
           "items": [
             {
               "label": "MOrhan786Hub",
-              "href": "https://github.com/MahneeraAzam"
+              "href": "https://github.com/MOrhan786"
             },
             {
               "label": "LinkedIn",
-              "href": "https://www.linkedin.com/in/razia-fatima-041290329/recent-activity/all/-5898a8268/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+              "href": "https://www.linkedin.com/in/razia-fatima-041290329/recent-activity/all/"
             }
           ]
         },
@@ -124,7 +124,7 @@ export default {
           "items": [
             {
               "label": "GitHub Repository",
-              "href": "https://github.com/MahneeraAzam"
+              "href": "https://github.com/MOrhan786"
             }
           ]
         }

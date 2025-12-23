@@ -223,7 +223,7 @@ export default function UserProfileButton(): JSX.Element {
           </button>
           
           <a 
-            href="https://github.com/MahneeraAzam" 
+            href="https://github.com/MOrhan786" 
             target="_blank" 
             rel="noopener noreferrer"
             className={styles.dropdownItem}
