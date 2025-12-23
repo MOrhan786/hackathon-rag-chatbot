@@ -14,7 +14,7 @@ const config: Config = {
   baseUrl: '/',
 
   // GitHub pages deployment config.
-  organizationName: 'Mahneera Azam',
+  organizationName: 'Fatima Asif',
   projectName: 'physical-ai-and-humanoid-robotics',
 
   onBrokenLinks: 'warn',

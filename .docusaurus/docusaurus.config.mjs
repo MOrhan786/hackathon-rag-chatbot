@@ -9,7 +9,7 @@ export default {
   "favicon": "img/favicon.ico",
   "url": "https://github.com",
   "baseUrl": "/",
-  "organizationName": "Mahneera Azam",
+  "organizationName": "Fatima Asif",
   "projectName": "physical-ai-and-humanoid-robotics",
   "onBrokenLinks": "warn",
   "i18n": {
