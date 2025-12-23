@@ -133,7 +133,7 @@ const config: Config = {
             },
             {
               label: 'LinkedIn',
-              href: 'https://www.linkedin.com/in/mahneera-azam-5898a8268/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+              href: 'https://www.linkedin.com/in/razia-fatima-5898a8268/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
             },
           ],
         },
