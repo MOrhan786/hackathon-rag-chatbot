@@ -1,7 +1,9 @@
 // src\theme\DocItem\TranslationControl.tsx
-import React, { useState, useContext, useRef, useCallback } from 'react';
+import React, { useState, useContext, useRef, useCallback, useEffect } from 'react';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import { AuthContext } from '@site/src/components/AuthContext';
+import { LANGUAGE_CHANGE_EVENT } from '@site/src/components/LanguageContext';
+import type { Language } from '@site/src/components/LanguageContext';
 import styles from './ContentControls.module.css';
 
 const API_URL = 'https://mrsasif-hackathon1-c.hf.space';
@@ -58,10 +60,10 @@ interface TranslationControlProps {
   onResetOther?: () => void;
 }
 
-export default function TranslationControl({ 
-  onStateChange, 
+export default function TranslationControl({
+  onStateChange,
   otherTransformActive,
-  onResetOther 
+  onResetOther
 }: TranslationControlProps): JSX.Element {
   const { isAuthenticated } = useContext(AuthContext);
   const [isTranslated, setIsTranslated] = useState(false);
@@ -187,6 +189,23 @@ export default function TranslationControl({
     };
   }, [reset]);
 
+  // Sync per-page button state with global language toggle (via window event)
+  useEffect(() => {
+    if (!isBrowser) return;
+    const handler = (e: Event) => {
+      const lang = (e as CustomEvent).detail?.language as Language;
+      if (lang === 'ur' && !isTranslated) {
+        setIsTranslated(true);
+        onStateChange?.(true);
+      } else if (lang === 'en' && isTranslated) {
+        setIsTranslated(false);
+        onStateChange?.(false);
+      }
+    };
+    window.addEventListener(LANGUAGE_CHANGE_EVENT, handler);
+    return () => window.removeEventListener(LANGUAGE_CHANGE_EVENT, handler);
+  }, [isBrowser, isTranslated, onStateChange]);
+
   return (
     <div className={styles.iconControlWrapper}>
       <button
@@ -227,7 +246,7 @@ export default function TranslationControl({
 }
 
 // Helper function to format markdown content for display
-function formatMarkdownContent(content: string): string {
+export function formatMarkdownContent(content: string): string {
   let html = content
     .replace(/^### (.*$)/gm, '<h3>$1</h3>')
     .replace(/^## (.*$)/gm, '<h2>$1</h2>')

@@ -185,6 +185,7 @@ export function AuthProvider({ children }: AuthProviderProps): JSX.Element {
     if (isBrowser) {
       localStorage.removeItem('physicalai_session_token');
       localStorage.removeItem('physicalai_user');
+      localStorage.removeItem('physicalai_language');
     }
   };
 

@@ -1,0 +1,80 @@
+/* src/theme/Navbar/LanguageToggle.module.css */
+.toggleWrapper {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ifm-background-surface-color);
+  height: 34px;
+}
+
+.toggleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 12px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: var(--ifm-font-color-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.toggleButton:hover:not(:disabled):not(.active) {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-font-color-base);
+}
+
+.toggleButton.active {
+  background: var(--ifm-color-primary-darkest);
+  color: white;
+}
+
+[data-theme='dark'] .toggleButton.active {
+  background: var(--ifm-color-primary);
+  color: var(--ifm-background-color);
+}
+
+.toggleButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .toggleButton {
+    padding: 0 8px;
+    font-size: 0.75rem;
+  }
+
+  .toggle {
+    height: 30px;
+  }
+}
