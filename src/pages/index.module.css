@@ -5,22 +5,33 @@
 }
 
 /* ============================================
-   HERO SECTION
+   HERO SECTION - Split Layout
    ============================================ */
 .hero {
-  padding: clamp(4rem, 12vh, 8rem) 2rem clamp(3rem, 8vh, 6rem);
-  text-align: center;
+  padding: clamp(3rem, 10vh, 6rem) 2rem;
   position: relative;
-  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+  background: radial-gradient(ellipse at 20% 50%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 50%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+  overflow: hidden;
 }
 
 [data-theme='dark'] .hero {
-  background: radial-gradient(circle at 50% 0%, rgba(165, 180, 252, 0.12) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 20% 50%, rgba(129, 140, 248, 0.1) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 50%, rgba(167, 139, 250, 0.08) 0%, transparent 50%);
 }
 
-.heroContent {
-  max-width: 900px;
+.heroInner {
+  max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+/* Left side - Text */
+.heroText {
+  flex: 1;
+  min-width: 0;
   position: relative;
   z-index: 10;
 }
@@ -39,14 +50,13 @@
 }
 
 .heroTitle {
-  font-size: clamp(2.25rem, 6vw, 4rem);
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 800;
   line-height: 1.1;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   letter-spacing: -0.02em;
 }
 
-/* Gradient Text Effect */
 .heroTitle span, .heroTitle {
   background: linear-gradient(180deg, var(--ifm-font-color-base) 0%, var(--ifm-font-color-secondary) 100%);
   -webkit-background-clip: text;
@@ -57,23 +67,102 @@
 [data-theme='dark'] .heroTitle {
   background: linear-gradient(180deg, #fff 0%, #94a3b8 100%);
   -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Typewriter */
+.typewriterWrapper {
+  height: 2.5rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.typewriterText {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--ifm-color-primary) 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cursor {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 300;
+  color: var(--ifm-color-primary);
+  animation: blink 1s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .heroSubtitle {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   color: var(--ifm-font-color-secondary);
   line-height: 1.6;
-  margin-bottom: 2.5rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  margin-bottom: 2rem;
+  max-width: 500px;
 }
 
 .heroButtons {
   display: flex;
   gap: 16px;
-  justify-content: center;
   flex-wrap: wrap;
+}
+
+/* Right side - Video */
+.heroVideo {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoGlow {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, transparent 70%);
+  filter: blur(40px);
+  z-index: 0;
+}
+
+[data-theme='dark'] .videoGlow {
+  background: radial-gradient(circle, rgba(129, 140, 248, 0.2) 0%, transparent 70%);
+}
+
+.videoContainer {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  box-shadow: 0 25px 60px -12px rgba(99, 102, 241, 0.15),
+              0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  background: var(--ifm-background-surface-color);
+  aspect-ratio: 16 / 10;
+}
+
+[data-theme='dark'] .videoContainer {
+  border-color: rgba(129, 140, 248, 0.15);
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.5),
+              0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* BUTTONS */
@@ -153,13 +242,15 @@
 
 .moduleCard {
   background: var(--ifm-background-surface-color);
-  padding: 2rem;
+  padding: 0;
   border-radius: 16px;
   border: 1px solid var(--ifm-color-emphasis-200);
   text-decoration: none;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .moduleCard:hover {
@@ -173,7 +264,6 @@
   box-shadow: 0 20px 40px -10px rgba(0,0,0,0.4);
 }
 
-/* Top colored line on cards */
 .moduleCard::before {
   content: '';
   position: absolute;
@@ -190,13 +280,34 @@
   opacity: 1;
 }
 
+/* Card Video */
+.cardVideoWrapper {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--ifm-color-emphasis-100);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.cardVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cardContent {
+  padding: 1.5rem;
+  position: relative;
+}
+
 .moduleNumber {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 800;
   color: var(--ifm-color-emphasis-200);
   position: absolute;
-  top: 10px;
-  right: 20px;
+  top: 8px;
+  right: 16px;
   opacity: 0.5;
 }
 
@@ -326,6 +437,10 @@
    RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
+  .heroInner {
+    gap: 2.5rem;
+  }
+
   .featureGrid {
     grid-template-columns: repeat(2, 1fr);
     gap: 30px;
@@ -333,18 +448,45 @@
 }
 
 @media (max-width: 768px) {
-  .heroTitle { font-size: 2.5rem; }
-  .heroSubtitle { font-size: 1.1rem; }
-  .featureGrid { grid-template-columns: 1fr; }
+  .heroInner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .heroText {
+    order: 1;
+  }
+
+  .heroVideo {
+    order: 2;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  .heroSubtitle {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .heroButtons {
+    justify-content: center;
     flex-direction: column;
     align-items: center;
   }
+
+  .typewriterWrapper {
+    justify-content: center;
+  }
+
   .primaryButton,
   .secondaryButton {
     width: 100%;
     max-width: 300px;
   }
+
+  .heroTitle { font-size: 2.5rem; }
+  .heroSubtitle { font-size: 1.1rem; }
+  .featureGrid { grid-template-columns: 1fr; }
   .sectionHeader h2 { font-size: 2rem; }
   .cta { padding: 4rem 1.5rem; }
   .ctaContent h2 { font-size: 2rem; }
@@ -366,5 +508,8 @@
     width: 100%;
     max-width: 300px;
     justify-content: center;
+  }
+  .videoContainer {
+    border-radius: 14px;
   }
 }

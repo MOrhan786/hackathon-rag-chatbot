@@ -1,29 +1,92 @@
 // src\pages\index.tsx
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import styles from './index.module.css';
 
+const typewriterTexts = [
+  'Build Intelligent Robots',
+  'Master ROS 2 & Gazebo',
+  'Deploy with NVIDIA Isaac',
+  'Create Humanoid Systems',
+];
+
+function useTypewriter(texts: string[], typingSpeed = 80, deletingSpeed = 40, pauseTime = 2000) {
+  const [displayText, setDisplayText] = useState('');
+  const [textIndex, setTextIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = texts[textIndex];
+
+    const timeout = setTimeout(() => {
+      if (!isDeleting) {
+        setDisplayText(current.slice(0, displayText.length + 1));
+        if (displayText.length === current.length) {
+          setTimeout(() => setIsDeleting(true), pauseTime);
+        }
+      } else {
+        setDisplayText(current.slice(0, displayText.length - 1));
+        if (displayText.length === 0) {
+          setIsDeleting(false);
+          setTextIndex((prev) => (prev + 1) % texts.length);
+        }
+      }
+    }, isDeleting ? deletingSpeed : typingSpeed);
+
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, textIndex, texts, typingSpeed, deletingSpeed, pauseTime]);
+
+  return displayText;
+}
+
 function HeroSection() {
+  const typewriterText = useTypewriter(typewriterTexts);
+
   return (
     <section className={styles.hero}>
-      <div className={styles.heroContent}>
-        <span className={styles.badge}>Open Source Textbook</span>
-        <h1 className={styles.heroTitle}>
-          Physical AI &<br />Humanoid Robotics
-        </h1>
-        <p className={styles.heroSubtitle}>
-          Bridge the gap between the digital brain and the physical body. 
-          Learn to design, simulate, and deploy intelligent robotic systems.
-        </p>
-        <div className={styles.heroButtons}>
-          <Link to="/docs" className={styles.primaryButton}>
-            Start Learning
-          </Link>
-          <Link to="/docs/module1/week1-intro-physical-ai" className={styles.secondaryButton}>
-            View Modules
-          </Link>
+      <div className={styles.heroInner}>
+        {/* Left - Text */}
+        <div className={styles.heroText}>
+          <span className={styles.badge}>Open Source Textbook</span>
+          <h1 className={styles.heroTitle}>
+            Physical AI &<br />Humanoid Robotics
+          </h1>
+          <div className={styles.typewriterWrapper}>
+            <span className={styles.typewriterText}>{typewriterText}</span>
+            <span className={styles.cursor}>|</span>
+          </div>
+          <p className={styles.heroSubtitle}>
+            Bridge the gap between the digital brain and the physical body.
+            Learn to design, simulate, and deploy intelligent robotic systems.
+          </p>
+          <div className={styles.heroButtons}>
+            <Link to="/docs" className={styles.primaryButton}>
+              Start Learning
+            </Link>
+            <Link to="/docs/module1/week1-intro-physical-ai" className={styles.secondaryButton}>
+              View Modules
+            </Link>
+          </div>
+        </div>
+
+        {/* Right - Video */}
+        <div className={styles.heroVideo}>
+          <div className={styles.videoGlow} />
+          <div className={styles.videoContainer}>
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className={styles.video}
+              poster="/img/ai-logo.svg"
+            >
+              <source src="/videos/robotics.mp4" type="video/mp4" />
+              <source src="/videos/robotics.webm" type="video/webm" />
+            </video>
+          </div>
         </div>
       </div>
     </section>
@@ -37,6 +100,7 @@ const modules = [
     subtitle: 'The Robotic Nervous System',
     description: 'Master nodes, topics, services, and URDF. Learn the middleware that connects all robot components.',
     link: '/docs/module1/week1-intro-physical-ai',
+    video: '/videos/card-1.mp4',
   },
   {
     number: '02',
@@ -44,6 +108,7 @@ const modules = [
     subtitle: 'The Digital Twin',
     description: 'Simulate physics, gravity, and collisions. Build virtual environments for testing.',
     link: '/docs/module2/week6-gazebo',
+    video: '/videos/card-2.mp4',
   },
   {
     number: '03',
@@ -51,6 +116,7 @@ const modules = [
     subtitle: 'The AI-Robot Brain',
     description: 'Explore photorealistic simulation, VSLAM, and GPU-accelerated perception.',
     link: '/docs/module3/week8-isaac',
+    video: '/videos/card-3.mp4',
   },
   {
     number: '04',
@@ -58,6 +124,7 @@ const modules = [
     subtitle: 'LLMs Meet Robotics',
     description: 'Combine large language models with robotics for voice-controlled autonomous systems.',
     link: '/docs/module4/week13-conversational-robotics',
+    video: '/videos/card-4.mp4',
   },
 ];
 
@@ -71,10 +138,23 @@ function ModulesSection() {
       <div className={styles.moduleGrid}>
         {modules.map((module) => (
           <Link to={module.link} key={module.number} className={styles.moduleCard}>
-            <span className={styles.moduleNumber}>{module.number}</span>
-            <h3 className={styles.moduleTitle}>{module.title}</h3>
-            <span className={styles.moduleSubtitle}>{module.subtitle}</span>
-            <p className={styles.moduleDescription}>{module.description}</p>
+            <div className={styles.cardVideoWrapper}>
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className={styles.cardVideo}
+              >
+                <source src={module.video} type="video/mp4" />
+              </video>
+            </div>
+            <div className={styles.cardContent}>
+              <span className={styles.moduleNumber}>{module.number}</span>
+              <h3 className={styles.moduleTitle}>{module.title}</h3>
+              <span className={styles.moduleSubtitle}>{module.subtitle}</span>
+              <p className={styles.moduleDescription}>{module.description}</p>
+            </div>
           </Link>
         ))}
       </div>
